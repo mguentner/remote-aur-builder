@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if [ -z $PACKAGE ]
+then
+    echo "Please set \$PACKAGE"
+    exit 1
+fi
+MAKEFLAGS="-j 9"
+su docker -c "yay -S --needed --noprogressbar --needed --noconfirm $PACKAGE"
+find /home/docker -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;

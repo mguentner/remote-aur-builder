@@ -4,5 +4,6 @@ then
     echo "Please set \$PACKAGE"
     exit 1
 fi
-su aurbuilder -c "yay -S --needed --noprogressbar --needed --noconfirm $PACKAGE"
-find /home/docker -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;
+AUR_USER=aurbuilder
+sudo -u $AUR_USER -D~ bash -c "yay -S --needed --noprogressbar --needed --noconfirm $PACKAGE"
+find /var/$AUR_USER -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;

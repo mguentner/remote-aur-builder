@@ -1,8 +1,4 @@
-# Arch Linux base docker container with yay for AUR access
-FROM greyltc/archlinux
-MAINTAINER Grey Christoforo <grey@christoforo.net>
+FROM greyltc/archlinux-aur
+MAINTAINER Maximilian Güntner <code@mguentner.de>
 
-# setup aur access for a new user "docker"
-ADD add-aur.sh /usr/sbin/add-aur
-RUN add-aur docker
 ADD build-package-docker /usr/bin/build-package

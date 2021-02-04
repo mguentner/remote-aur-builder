@@ -4,6 +4,6 @@ then
     echo "Please set \$PACKAGE"
     exit 1
 fi
-AUR_USER=aurbuilder
+AUR_USER=ab
 sudo -u $AUR_USER -D~ bash -c "yay -Sy --needed --noprogressbar --needed --noconfirm $PACKAGE"
-find /var/$AUR_USER -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;
+find /var/cache/makepkg/pkg -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;

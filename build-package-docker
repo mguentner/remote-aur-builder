@@ -4,10 +4,10 @@ then
 	echo "Please set \$PACKAGES (comma seperated string)"
 	exit 1
 fi
-PACKAGES_ARRAY=($(echo $PACKAGES | tr ";" "\n"))
+PACKAGES_ARRAY=($(echo $PACKAGES | tr "," "\n"))
 AUR_USER=ab
 for PACKAGE in "${PACKAGES_ARRAY[@]}"
 do
-	sudo -u $AUR_USER -D~ bash -c "yay -Sy --needed --noprogressbar --needed --noconfirm $PACKAGE"
+	sudo -u $AUR_USER -D~ bash -c "yay -Sy --useask --needed --noprogressbar --needed --noconfirm $PACKAGE"
 done
 find /var/cache/makepkg/pkg -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;

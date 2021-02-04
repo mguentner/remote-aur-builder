@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-if [ -z $PACKAGE ]
+if [ -z $PACKAGES ]
 then
-    echo "Please set \$PACKAGE"
-    exit 1
+	echo "Please set \$PACKAGES (comma seperated string)"
+	exit 1
 fi
+PACKAGES_ARRAY=($(echo $PACKAGES | tr ";" "\n"))
 AUR_USER=ab
-sudo -u $AUR_USER -D~ bash -c "yay -Sy --needed --noprogressbar --needed --noconfirm $PACKAGE"
+for PACKAGE in "${PACKAGES_ARRAY[@]}"
+do
+	sudo -u $AUR_USER -D~ bash -c "yay -Sy --needed --noprogressbar --needed --noconfirm $PACKAGE"
+done
 find /var/cache/makepkg/pkg -iname *pkg.tar* -exec tar --transform 's/.*\///g'  -rvf /tmp/all-packages.tar "{}" \;
